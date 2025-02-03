@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clicker Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f0f0f0;
+    }
+    #game-container {
+      margin-top: 50px;
+    }
+    #click-button {
+      padding: 20px 40px;
+      font-size: 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    #click-button:active {
+      background-color: #45a049;
+    }
+    #score {
+      font-size: 24px;
+      margin-top: 20px;
+    }
+    #reset-button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #f44336;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    #reset-button:active {
+      background-color: #e53935;
+    }
+    .upgrade-button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #2196F3;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .upgrade-button:active {
+      background-color: #1976D2;
+    }
+  </style>
+</head>
+<body>
+  <div id="game-container">
+    <button id="click-button" onclick="incrementScore()">Click Me!</button>
+    <div id="score">Score: 0</div>
+    <button id="reset-button" onclick="resetScore()">Reset</button>
+    <div>
+      <button class="upgrade-button" onclick="buyUpgrade('autoClicker')">Buy Auto Clicker (Cost: 50)</button>
+      <button class="upgrade-button" onclick="buyUpgrade('multiplier')">Buy Multiplier (Cost: 100)</button>
+      <button class="upgrade-button" onclick="buyUpgrade('bonusClicks')">Buy Bonus Clicks (Cost: 150)</button>
+    </div>
+  </div>
+
+  <script>
+    let score = 0;
+    let autoClickerCost = 50;
+    let multiplierCost = 100;
+    let bonusClicksCost = 150;
+    let multiplier = 1;
+
+    function incrementScore() {
+      score += multiplier;
+      document.getElementById('score').innerText = 'Score: ' + score;
+    }
+
+    function resetScore() {
+      score = 0;
+      multiplier = 1;
+      document.getElementById('score').innerText = 'Score: ' + score;
+    }
+
+    function buyUpgrade(upgrade) {
+      if (upgrade === 'autoClicker' && score >= autoClickerCost) {
+        score -= autoClickerCost;
+        autoClickerCost *= 2;
+        setInterval(incrementScore, 1000);
+      } else if (upgrade === 'multiplier' && score >= multiplierCost) {
+        score -= multiplierCost;
+        multiplier *= 2;
+        multiplierCost *= 2;
+      } else if (upgrade === 'bonusClicks' && score >= bonusClicksCost) {
+        score -= bonusClicksCost;
+        score += 50;
+        document.getElementById('score').innerText = 'Score: ' + score;
+      }
+    }
+  </script>
+</body>
+</html>
